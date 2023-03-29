@@ -43,7 +43,7 @@ void drawCircle(float x, float y, float z,float r) {
 
 void draw_ground()
 {
-    glColor3f(0.70,0.39,0.11);
+    glColor3f(0.56,0.93,0.56);
     glBegin(GL_POLYGON);
     glVertex3f(-300,-0.1,-300);
     glVertex3f(-300,-0.1,300);
@@ -122,6 +122,27 @@ void floor_0(int x,int y,int z)
 
     //windows column3 
     make_window(39,1,0.1,3,1,x,y,z);
+
+    //backside 
+    make_door(6,0,-0.1,3,4,x,y,z-18);
+    make_floor_window(11,1,-0.1,3,3,x,y,z-18); 
+    make_door(17,0,-0.1,3,4,x,y,z-18);
+    make_door(22,0,-0.1,1,3,x,y,z-18);
+
+    //openway 
+    glColor3f(0.6,0.6, 0.6);
+    glPushMatrix();
+    glTranslatef(x,y,z-18);
+    glTranslatef(26,0,-0.1);
+    glScalef(5,9,0);
+    make_cube();
+    glPopMatrix();
+
+    make_door(32,0,-0.1,3,4,x,y,z-18);
+    make_floor_window(37,1,-0.1,3,3,x,y,z-18); 
+    make_floor_window(43,1,-0.1,3,3,x,y,z-18); 
+    make_door(47,0,-0.1,3,4,x,y,z-18);
+    // make_door(56,-0,0.1,3,4,x,y,z-18);
 }
 
 void floor_2(int x,int y,int z)
@@ -187,6 +208,28 @@ void floor_2(int x,int y,int z)
     //windows column8 
     make_window(49.5,5,0.1,3,1,x,y,z); 
     make_window(49.5,3,0.1,3,1,x,y,z); 
+
+    //backside 
+    y += 1;
+    make_door(6,0,-0.1,3,4,x,y,z-18);
+    make_floor_window(11,1,-0.1,3,3,x,y,z-18); 
+    make_door(17,0,-0.1,3,4,x,y,z-18);
+    make_door(22,0,-0.1,1,3,x,y,z-18);
+
+    //openway 
+    glColor3f(0.6,0.6, 0.6);
+    glPushMatrix();
+    glTranslatef(x,y-1,z-18);
+    glTranslatef(26,0,-0.1);
+    glScalef(5,9,0);
+    make_cube();
+    glPopMatrix();
+
+    make_door(32,0,-0.1,3,4,x,y,z-18);
+    make_floor_window(37,1,-0.1,3,3,x,y,z-18); 
+    make_floor_window(43,1,-0.1,3,3,x,y,z-18); 
+    make_door(47,0,-0.1,3,4,x,y,z-18);
+    make_door(56,-0,0.1,3,4,x,y,z-18);
 
 }
 
@@ -262,6 +305,28 @@ void floor_4(int x,int y,int z)
 
     //windows column7
     make_window(55,4,0.1,3,1,x,y,z);
+
+    //backside
+    y += 1;
+    make_door(6,0,-0.1,3,4,x,y,z-18);
+    make_floor_window(11,1,-0.1,3,3,x,y,z-18); 
+    make_door(17,0,-0.1,3,4,x,y,z-18);
+    make_door(22,0,-0.1,1,3,x,y,z-18);
+
+    //openway 
+    glColor3f(0.6,0.6, 0.6);
+    glPushMatrix();
+    glTranslatef(x,y-1,z-18);
+    glTranslatef(26,0,-0.1);
+    glScalef(5,9,0);
+    make_cube();
+    glPopMatrix();
+
+    make_door(32,0,-0.1,3,4,x,y,z-18);
+    make_floor_window(37,1,-0.1,3,3,x,y,z-18); 
+    make_floor_window(43,1,-0.1,3,3,x,y,z-18); 
+    make_door(47,0,-0.1,3,4,x,y,z-18);
+    // make_door(56,-0,0.1,3,4,x,y,z-18);
 }
 
 void floor_in(int x,int y,int z)
@@ -296,17 +361,25 @@ void floor_in(int x,int y,int z)
 
 }
 
+void draw_pod(int x,int y,int z)
+{
+    floor_0(x+6,y+0,z+0);
+    floor_in(x+1,y+7,z-4);
+    floor_2(x+3,y+13,z+0);
+    floor_in(x-1,y+20,z-4);
+    floor_4(x+0,y+26,z+0);
+}
+
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     draw_axis();
     draw_ground();
-    floor_0(6,0,0);
-    floor_in(1,7,-4);
-    floor_2(3,13,0);
-    floor_in(-1,20,-4);
-    floor_4(0,26,0);
+    draw_pod(0,0,0);
+    draw_pod(-80,0,0);
+    draw_pod(0,0,-68);
+    draw_pod(-80,0,-68);
     glFlush();
     glutSwapBuffers();
 }
